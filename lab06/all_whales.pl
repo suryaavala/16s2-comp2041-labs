@@ -68,6 +68,6 @@ foreach my $whale (sort keys %whale_base)
   my $pods = @$temp_entry[0];
   my $individuals = @$temp_entry[1];
 
-  print "$whale observations: $pods pods, $individuals individuals\n";
+  print "$whale observations:  $pods pods, $individuals individuals\n";
 
 }
