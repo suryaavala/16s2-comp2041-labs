@@ -3,6 +3,7 @@
 #COMP9041 Software Construction, 16s2, lab05
 #tail.pl
 use strict;
+use warnings;
 #print @ARGV;
 my $nb_args = $#ARGV;
 #print $nb_args;
