@@ -14,13 +14,13 @@ sub tailing
 {
   #takes @lines and $nb_lines as argument
   my @tailed_lines;
-  if ($#lines > $nb_lines)
+  if ($#lines >= $nb_lines)
   {
   @tailed_lines = @lines[$#lines-$nb_lines+1..$#lines];
 
 }
 else {
-  @tailed_lines = @lines[0..$#lines];
+  @tailed_lines = @lines;
 }
   print @tailed_lines;
 }
@@ -80,6 +80,7 @@ else {
     /\S/ or last;
     push @lines, $_;
   }
+  #$nb_lines++;
   &tailing();
 }
 
