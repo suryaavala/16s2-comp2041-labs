@@ -33,7 +33,7 @@ foreach my $line (@lines)
   #push @whales, \@($whale_name,$count);
 }
 
-my $pods;
+my $pods=0;
 my $individuals = 0;
 
 foreach (@whales)
