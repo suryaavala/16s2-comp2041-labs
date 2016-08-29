@@ -1,14 +1,12 @@
 #!/usr/bin/perl -w
+#Surya Avinash Avala, z5096886
+#COMP9041 Software Construction, 16s2, lab05
 
 use strict;
 use Try::Tiny;
 use Scalar::Util qw(reftype);
 
-# my $line = "";
-# while (<STDIN>){
-#   $line = <STDIN>;
-# }
-# print $line;
+
 
 my @lines;
 while (<STDIN>){
@@ -20,21 +18,15 @@ while (<STDIN>){
 #print @line;
 
 foreach my $line (@lines) {
-  # body...
+
 
 
 my @chars = split("", $line);
-#print @chars;
+
 
 for my $i (0 .. $#chars)
  {
-   #print $i;
 
-  #  try {
-  #       die "foo";
-  #     } catch {
-  #       warn "caught error: $_";
-  #     };
   my $t = $chars[$i];
 
    if ((ord($t) lt "58") && (ord($t) gt "47"))
