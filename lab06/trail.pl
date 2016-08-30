@@ -21,13 +21,20 @@ use warnings;
 #
 # print $whale, $whale_base{$whale};
 
-my $s = "Surya AvinAsh AVA:AlA";
+# my $s = "Surya AvinAsh AVA:AlA";
+#
+# if ($s =~ /.*[A]$/)
+# {
+#   print "s\n"
+# }
+# else
+# {
+#   print "n\n"
+# }
+my @p = (1,2,3);
+sub surya{
+  print "hellp\n";
+}
+push @p,&surya;
 
-if ($s =~ /.*[A]$/)
-{
-  print "s\n"
-}
-else
-{
-  print "n\n"
-}
+print @p;
