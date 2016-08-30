@@ -35,7 +35,7 @@ sub extract_http
       if ($c =~ /^.*Prerequisite.*$/)
       {
         $b = $c;
-
+        last;
       }
   }
 
@@ -92,23 +92,26 @@ sub extract_prereqs
   my @url = ("http://www.handbook.unsw.edu.au/postgraduate/courses/2016/$a.html","http://www.handbook.unsw.edu.au/undergraduate/courses/2016/$a.html");
 
   #http://www.handbook.unsw.edu.au/undergraduate/courses/2016/HESC3641.html
-  my @prelines=();
 
 
-  foreach my $x (@url) {
-    # body...
-    my $temp = &extract_http($x);
-    if ($temp ne 1){
-      push @prelines, $temp;
-    }
-  }
+  ########################
+  #my @prelines=();
+  # foreach my $x (@url) {
+  #   # body...
+  #   my $temp = &extract_http($x);
+  #   if ($temp ne 1){
+  #     push @prelines, $temp;
+  #   }
+  # }
   #print "$prelines[0], $prelines[1]\n";
+  ##########################
 
-
-  foreach my $x (@prelines) {
-    # body...
-    $x =~ s|<.+?>||g;
-    my @words = split(" ",$x);
+foreach my $x (@url) {
+  # body...
+  my $temp = &extract_http($x);
+  if ($temp ne 1){
+    $temp =~ s|<.+?>||g;
+    my @words = split(" ",$temp);
     foreach my $word (@words) {
       # body...
       if ($word =~ /^[A-Z]{4}[0-9]{4}/)
@@ -117,9 +120,24 @@ sub extract_prereqs
         push @prereqs, $word;
       }
     }
-
   }
-
+  }
+  ##########################################
+  # foreach my $x (@prelines) {
+  #   # body...
+  #   $x =~ s|<.+?>||g;
+  #   my @words = split(" ",$x);
+  #   foreach my $word (@words) {
+  #     # body...
+  #     if ($word =~ /^[A-Z]{4}[0-9]{4}/)
+  #     {
+  #       $word = substr($word, 0,8);
+  #       push @prereqs, $word;
+  #     }
+  #   }
+  #
+  # }
+  ###########################################
   return;
 
 }
