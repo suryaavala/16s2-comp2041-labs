@@ -1,40 +1,142 @@
 #!/usr/bin/perl -w
+#Surya Avinash Avala, z5096886
+#COMP9041 Software Construction, 16s2, lab06
+#prereq.pl
 
 use strict;
 use warnings;
 
-
-# my %whale_base;
-#
-# $whale_base{$ARGV[0]} = $ARGV[1];
-#
-#
-# foreach my $whale (keys %whale_base) {
-#
-#   # body...
-#   print $whale, $whale_base{$whale};
-# }
-#
-# print "\n";
-# my $whale = $ARGV[0];
-# $whale_base{$whale} =  $whale_base{$whale} + 55;
-#
-# print $whale, $whale_base{$whale};
-
-# my $s = "Surya AvinAsh AVA:AlA";
-#
-# if ($s =~ /.*[A]$/)
-# {
-#   print "s\n"
-# }
-# else
-# {
-#   print "n\n"
-# }
-my @p = (1,2,3);
-sub surya{
-  print "hellp\n";
+my $rec;
+my $course;
+if ($#ARGV == 1)
+{
+  $rec = "1";
+  $course = $ARGV[1];
 }
-push @p,&surya;
+else
+{
+  $rec = "0";
+  $course = $ARGV[0]
+}
 
-print @p;
+my @prereqs;
+#print "$rec, $course\n";
+
+sub extract_http
+{
+  local $a = $_[0];
+  #print "$a\n";
+  open F, "wget -q -O- $a|" or die;
+
+  local $b="1";
+
+  while (my $c = <F>)
+  {
+      if ($c =~ /^.*Prerequisite.*$/)
+      {
+        $b = $c;
+
+      }
+  }
+
+  close(F);
+
+  #print "$b\n";
+  return $b;
+}
+
+
+# sub extract_prereqs
+# {
+#   my @url = ("http://www.handbook.unsw.edu.au/postgraduate/courses/2016/$course.html","http://www.handbook.unsw.edu.au/undergraduate/courses/2016/$course.html");
+#
+#   #http://www.handbook.unsw.edu.au/undergraduate/courses/2016/HESC3641.html
+#   my @prelines=();
+#
+#
+#   foreach my $x (@url) {
+#     # body...
+#     my $temp = &extract_http($x);
+#     if ($temp ne 1){
+#       push @prelines, $temp;
+#     }
+#   }
+#   #print "$prelines[0], $prelines[1]\n";
+#
+#
+#   foreach my $x (@prelines) {
+#     # body...
+#     $x =~ s|<.+?>||g;
+#     my @words = split(" ",$x);
+#     foreach my $word (@words) {
+#       # body...
+#       if ($word =~ /^[A-Z]{4}[0-9]{4}/)
+#       {
+#         $word = substr($word, 0,8);
+#         push @prereqs, $word;
+#       }
+#     }
+#
+#   }
+#
+#   # foreach my $x (sort @prereqs) {
+#   #   # body...
+#   #   print "$x\n";
+#   # }
+#
+# }
+
+sub extract_prereqs
+{
+  local $a = $_[0];
+  my @url = ("http://www.handbook.unsw.edu.au/postgraduate/courses/2016/$a.html","http://www.handbook.unsw.edu.au/undergraduate/courses/2016/$a.html");
+
+  #http://www.handbook.unsw.edu.au/undergraduate/courses/2016/HESC3641.html
+  my @prelines=();
+
+
+  foreach my $x (@url) {
+    # body...
+    my $temp = &extract_http($x);
+    if ($temp ne 1){
+      push @prelines, $temp;
+    }
+  }
+  #print "$prelines[0], $prelines[1]\n";
+
+
+  foreach my $x (@prelines) {
+    # body...
+    $x =~ s|<.+?>||g;
+    my @words = split(" ",$x);
+    foreach my $word (@words) {
+      # body...
+      if ($word =~ /^[A-Z]{4}[0-9]{4}/)
+      {
+        $word = substr($word, 0,8);
+        push @prereqs, $word;
+      }
+    }
+
+  }
+
+  return;
+
+}
+
+
+&extract_prereqs($course);
+
+if ($rec eq "1")
+{
+  foreach my $x (@prereqs) {
+    # body...
+    &extract_prereqs($x);
+  }
+
+}
+
+foreach my $x (sort @prereqs) {
+  # body...
+  print "$x\n";
+}
