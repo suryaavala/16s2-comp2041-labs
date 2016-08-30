@@ -40,9 +40,28 @@ sub extract_http
   }
 
   close(F);
-
+  my $t = 0;
+  if ($b ne 1)
+  {
+    $b =~ s|<.+?>||g;
+    my @words = split(" ",$b);
+    foreach my $word (@words) {
+      # body...
+      if ($word =~ /^[A-Z]{4}[0-9]{4}/)
+      {
+        $t++;
+        $word = substr($word, 0,8);
+        push @prereqs, $word;
+      }
+      else
+      {
+        $t--;
+        if ($t < -9) {last;}
+      }
+    }
+  }
   #print "$b\n";
-  return $b;
+  return;
 }
 
 
@@ -107,20 +126,21 @@ sub extract_prereqs
   ##########################
 
 foreach my $x (@url) {
-  # body...
-  my $temp = &extract_http($x);
-  if ($temp ne 1){
-    $temp =~ s|<.+?>||g;
-    my @words = split(" ",$temp);
-    foreach my $word (@words) {
-      # body...
-      if ($word =~ /^[A-Z]{4}[0-9]{4}/)
-      {
-        $word = substr($word, 0,8);
-        push @prereqs, $word;
-      }
-    }
-  }
+#   # body...
+#   my $temp = &extract_http($x);
+#   if ($temp ne 1){
+#     $temp =~ s|<.+?>||g;
+#     my @words = split(" ",$temp);
+#     foreach my $word (@words) {
+#       # body...
+#       if ($word =~ /^[A-Z]{4}[0-9]{4}/)
+#       {
+#         $word = substr($word, 0,8);
+#         push @prereqs, $word;
+#       }
+#     }
+#   }
+  &extract_http($x);
   }
   ##########################################
   # foreach my $x (@prelines) {
@@ -149,12 +169,13 @@ if ($rec eq "1")
 {
   foreach my $x (@prereqs) {
     # body...
+    #print "$x\n";
     &extract_prereqs($x);
   }
 
 }
 
-foreach my $x (sort @prereqs) {
-  # body...
-  print "$x\n";
-}
+# foreach my $x (sort @prereqs) {
+#   # body...
+#   print "$x\n";
+# }
