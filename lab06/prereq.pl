@@ -64,7 +64,7 @@ foreach my $x (@prelines) {
 
 }
 
-foreach my $x (@prereqs) {
+foreach my $x (sort @prereqs) {
   # body...
   print "$x\n";
 }
