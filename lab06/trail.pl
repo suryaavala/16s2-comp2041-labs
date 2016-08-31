@@ -35,6 +35,7 @@ sub extract_http
       if ($c =~ /^.*Prerequisite.*$/)
       {
         $b = $c;
+        #print"$b\n";
         last;
       }
   }
@@ -47,12 +48,13 @@ sub extract_http
     my @words = split(" ",$b);
     foreach my $word (@words) {
       # body...
-      if ($word =~ /^[A-Z]{4}[0-9]{4}/)
+      if ($word =~ /[A-Z]{4}[0-9]{4}/)
       {
-
-        $word = substr($word, 0,8);
-        if ( !grep (/^$word$/,@prereqs)){
-          push @prereqs, $word;
+        my ($pattern) = $word =~ /[A-Z]{4}[0-9]{4}/g;
+        #$word = substr($word, 0,8);
+        #print"$pattern\n";
+        if ( !grep (/^$pattern$/,@prereqs)){
+          push @prereqs, $pattern;
         }
       }
     }
