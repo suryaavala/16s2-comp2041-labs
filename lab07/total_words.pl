@@ -17,19 +17,26 @@ foreach my $x (<STDIN>)
   #print "$x\n******\n";
   #my @temp = split(/[a-z]*/i, $x);
   #chomp ($x);
-
+if ($x =~/^\s*$/)
+{
+  next;
+}
+else
+{
   #print "$x\n*******\n";
   $x =~ s/[^a-zA-Z]/ /g;
+
   $x =~ s/\s+/ /g;
 
-  my @temp = split(/ /, $x);
+
+  my @temp = split(" ", $x);
 
 
 
-  #print "$x\n@temp\n$#temp\n";
-  $words += $#temp+1;
+  #print "$x\n@temp\n$#temp\n****$words****\n";
+  $words = $words + $#temp + 1;
+  #print "######$words@@@@@\n"
 
-
-
+}
 }
 print "$words\n";
