@@ -32,7 +32,7 @@ sub extract_http
 
   while (my $c = <F>)
   {
-      if ($c =~ /^.*Prerequisite.*$/)
+      if ($c =~ /^.*requisite.*$/)
       {
         $b = $c;
         #print"$b\n";
@@ -44,8 +44,12 @@ sub extract_http
 
   if ($b ne 1)
   {
-    $b =~ s|<.+?>||g;
-    my @words = split(" ",$b);
+    #$b =~ s|<.+?>||g;
+    my $pre = $b;
+    ($pre) = $pre =~ /requisite.*\./g;
+    #print "$course\n";
+    #print "$pre\n";
+    my @words = split(" ",$pre);
     foreach my $word (@words) {
       # body...
       if ($word =~ /[A-Z]{4}[0-9]{4}/)
