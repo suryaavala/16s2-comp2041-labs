@@ -27,4 +27,4 @@ foreach my $x (<STDIN>)
 
 }
 
-print ($count{$word});
+printf ("%s occurred %s times\n", $word, $count{$word});
