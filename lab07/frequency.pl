@@ -78,10 +78,19 @@ foreach my $file (@files)
 # my $te = $poet." ".$word;
 # print $count{$te};
 # #print "$_\n" for keys %count;
-
+my $c;
 foreach my $x (@poets)
 {
   # body...
-  my $c = $count{$x." ".$word};
+  if ($count{$x." ".$word})
+  {
+    $c = $count{$x." ".$word};
+    #print "$c\n";
+
+  }
+  else
+  {
+    $c = 0;
+  }
   printf "%4d/%6d = %.9f %s\n", $c, $words{$x}, $c/$words{$x}, $x;
 }
