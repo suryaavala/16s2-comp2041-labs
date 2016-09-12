@@ -39,4 +39,4 @@ else
 
 }
 }
-print "$words\n";
+print "$words words";
