@@ -78,6 +78,8 @@ foreach my $file (@files)
 # my $te = $poet." ".$word;
 # print $count{$te};
 # #print "$_\n" for keys %count;
+
+@poets = sort { lc($a) cmp lc($b) } @poets;
 my $c;
 foreach my $x (@poets)
 {
