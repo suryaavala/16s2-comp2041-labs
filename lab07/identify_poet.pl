@@ -102,3 +102,28 @@ foreach my $file (@files)
     &word_frequency($file);
   }
 }
+
+my $new_works = $ARGV[0];
+
+$new_works =~ s/1/\.\*/g;
+#print "----$new_works*****\n";
+my @current_files;
+opendir DIR, '.' or die "cannot open dir $dir: $!";
+@current_files= readdir DIR;
+closedir DIR;
+
+foreach my $file (@current_files)
+{
+
+  if ($file =~ /$new_works/)
+  {
+    open my $f, $file or die "Could not open $file: $!";
+
+    while( my $x = <$f>)
+    {
+      
+    }
+    close $f;
+
+  }
+}
